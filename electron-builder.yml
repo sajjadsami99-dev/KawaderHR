@@ -1,21 +1,36 @@
-appId: com.sajjadsami.kawaderhr
-productName: كوادر HR
-asar: true
-directories:
-  output: dist
-files:
-  - electron-main.js
-  - server.js
-  - package.json
-  - public/**
-win:
-  icon: public/logo.ico
-  target:
-    - nsis
-nsis:
-  oneClick: false
-  allowToChangeInstallationDirectory: true
-  createDesktopShortcut: true
-  createStartMenuShortcut: true
-  shortcutName: كوادر HR
-  deleteAppDataOnUninstall: false
+name: Build Kawader HR for Windows
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Windows installer
+        run: npm run dist:win
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Kawader-HR-Windows-Installer
+          path: dist/*
+          if-no-files-found: error
