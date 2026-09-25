@@ -1,0 +1,21 @@
+appId: com.sajjadsami.kawaderhr
+productName: كوادر HR
+asar: true
+directories:
+  output: dist
+files:
+  - electron-main.js
+  - server.js
+  - package.json
+  - public/**
+win:
+  icon: public/logo.ico
+  target:
+    - nsis
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: كوادر HR
+  deleteAppDataOnUninstall: false
