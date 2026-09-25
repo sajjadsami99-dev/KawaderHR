@@ -1,36 +1,28 @@
-name: Build Kawader HR for Windows
+name: Build Kawader HR
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 
 jobs:
-  build-windows:
+  build:
     runs-on: windows-latest
-
-    permissions:
-      contents: read
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: Install
         run: npm install
 
-      - name: Build Windows installer
+      - name: Build
         run: npm run dist:win
 
-      - name: Upload installer
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: Kawader-HR-Windows-Installer
+          name: Kawader-HR-Windows
           path: dist/*
-          if-no-files-found: error
