@@ -1,7 +1,46 @@
 {
-  "name":"kawader-hr-local",
-  "version":"5.0.0",
-  "private":true,
-  "scripts":{"start":"node server.js"},
-  "dependencies":{"express":"^4.21.2","express-session":"^1.18.1"}
+  "name": "kawader-hr-local",
+  "version": "5.0.0",
+  "private": true,
+  "description": "كوادر HR - نظام إدارة الموارد البشرية والرواتب",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "node server.js",
+    "desktop": "electron .",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-session": "^1.18.1"
+  },
+  "devDependencies": {
+    "electron": "^38.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.sajjadsami.kawaderhr",
+    "productName": "كوادر HR",
+    "asar": true,
+    "files": [
+      "electron-main.js",
+      "server.js",
+      "package.json",
+      "public/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [{"target": "nsis", "arch": ["x64"]}],
+      "icon": "public/logo.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "كوادر HR",
+      "deleteAppDataOnUninstall": false
+    }
+  }
 }
